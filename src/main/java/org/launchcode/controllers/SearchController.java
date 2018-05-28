@@ -1,6 +1,7 @@
 package org.launchcode.controllers;
 
 import org.launchcode.models.JobData;
+import org.springframework.boot.autoconfigure.batch.BatchProperties;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,14 @@ public class SearchController {
     @RequestMapping(value = "")
     public String search(Model model) {
         model.addAttribute("columns", ListController.columnChoices);
+        return "search";
+    }
+
+    @RequestMapping(value="results")
+    public String results(Model model, @RequestParam String searchType, @RequestParam String searchTerm)  {
+        ArrayList<HashMap<String, String>> items = JobData.findByColumnAndValue(searchType,searchTerm);
+        model.addAttribute("columns", ListController.columnChoices);
+        model.addAttribute("items",items);
         return "search";
     }
 
