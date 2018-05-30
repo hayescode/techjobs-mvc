@@ -36,6 +36,7 @@
 
     <hr />
 
+    <h3 th:unless="${items} and ${items.size()}">O Results</h3>
     <div th:if="${items} and ${items.size()}">
         <h3 th:text="${items.size()} + ' Results'"></h3>
         <table th:each="item : ${items}" class="job-listing">

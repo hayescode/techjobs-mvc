@@ -77,15 +77,24 @@ public class JobData {
 
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
-        for (HashMap<String, String> row : allJobs) {
+        if (column.equals("all")) {
+            for (HashMap<String, String> row : allJobs) {
+                for (String myColumn : row.values()) {
+                    if (value != null && myColumn.toLowerCase().contains(value.toLowerCase())) {
+                        jobs.add(row);
+                    }
+                }
+            }
+        } else {
+            for (HashMap<String, String> row : allJobs) {
 
-            String aValue = row.get(column);
+                String aValue = row.get(column);
 
-            if (aValue != null && aValue.toLowerCase().contains(value.toLowerCase())) {
-                jobs.add(row);
+                if (aValue != null && aValue.toLowerCase().contains(value.toLowerCase())) {
+                    jobs.add(row);
+                }
             }
         }
-
         return jobs;
     }
 
